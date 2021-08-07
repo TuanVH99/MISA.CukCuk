@@ -1,0 +1,76 @@
+@import url("../common/font.css");
+
+.input-icon {
+    position: relative;
+    display: flex;
+    height: 40px;
+    width: 350px;
+    box-sizing: border-box;
+}
+.input-icon .input-icon-icon {
+    position: absolute;
+    background-image: url("../../assets/icon/search.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 16px;
+    height: 40px;
+    box-sizing: border-box;
+    left: 16px;
+    line-height: 40px;
+}
+.input-icon input {
+    height: 40px;
+    padding: 0 40px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-family: GGS-Regular;
+    font-size: 13px;
+    color: #000;
+    box-sizing: border-box;
+}
+.input-icon input:focus {
+    border-color: #019160;
+}
+.input-icon input.error {
+    border-color: #ff4747;
+}
+.input-icon .tooltiptext {
+    width: 150px;
+    background-color: #f65454;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    left: 100px;
+    /* margin-left: -60px; */
+    bottom: 42px;
+}
+
+.input-icon .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #f65454 transparent transparent transparent;
+}
+
+/* clear button */
+.input-icon .input-clear {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    right: 0;
+    text-align: center;
+}
+
+.input-icon .input-clear:hover {
+    cursor: pointer;
+}

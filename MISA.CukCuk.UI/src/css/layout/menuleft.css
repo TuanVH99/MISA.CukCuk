@@ -1,0 +1,61 @@
+@import url("../common/font.css");
+
+.menu-left {
+    border-right: 1px solid #ccc;
+    width: 225px;
+    height: calc(100vh - 49px);
+}
+
+.menu-left .menu-left-item {
+    height: 44px;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 16px;
+    font-family: GGS-Regular;
+    font-size: 13px;
+    color: #000;
+    cursor: pointer;
+}
+
+.menu-left-item.active {
+    background-color: #019160;
+    color: #ffffff;
+    font-family: GGS-Medium;
+    font-size: 13px;
+}
+
+.menu-left .menu-left-item .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-size: contain;
+}
+
+.general-icon {
+    background-image: url("../../assets/icon/dashboard.png");
+}
+
+.report-icon {
+    background-image: url("../../assets/icon/report.png");
+}
+
+.buy-icon {
+    background-image: url("../../assets/icon/dashboard.png");
+}
+
+.emplyee-icon {
+    background-image: url("../../assets/icon/dic-employee.png");
+}
+
+.setting-icon {
+    background-image: url("../../assets/icon/setting.png");
+}
+
+.menu-left .menu-left-item:hover {
+    background-color: #e5e5e5;
+    color: #000000;
+    font-family: GGS-Regular;
+    font-size: 13px;
+}

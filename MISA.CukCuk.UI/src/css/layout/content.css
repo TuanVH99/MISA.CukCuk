@@ -1,0 +1,72 @@
+@import url("../common/font.css");
+.content {
+    position: absolute;
+    top: 49px;
+    left: 226px;
+    width: calc(100% - 226px);
+    height: calc(100% - 49px);
+    background-color: #fff;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.content-title {
+    font-family: GGS-Bold;
+    font-size: 24px;
+    color: #000;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-filter {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+.content-filter {
+    display: flex;
+    justify-content: space-between;
+}
+.left-part {
+    display: flex;
+}
+.left-part>div{
+    margin-right: 16px;
+}
+
+.content-data {
+    height: calc(100% - 150px);
+    box-sizing: border-box;
+}
+.content-bottom {
+    height: 56px;
+    box-sizing: border-box;
+}
+
+.refresh-button {
+    width: 40px;
+    height: 40px;
+    border: 0.2px solid #bbbbbb;
+    background-color: #fff;
+    border-radius: 4px;
+    height: 40px;
+    color: #000000;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    background-image: url("../../assets/icon/refresh.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    left: 100px;
+}
+
+.refresh-button:hover {
+    background-color: #e9ebee;
+}
+
+.refresh-button:active {
+    background-color: #01b075;
+}

@@ -1,0 +1,55 @@
+ <LabelInput
+                  label="Mã nhân viên"
+                  name="EmployeeCode"
+                  type="text"
+                  v-model="newData.EmployeeCode"
+                  focus
+                  required
+                /><LabelInput
+                  label="Họ và tên"
+                  name="FullName"
+                  type="text"
+                  v-model="newData.FullName"
+                  required
+                />
+
+
+
+                 <div class="input-label" :class="{ 'input-money': isCurrency }">
+    <label>{{ label }}</label>
+    <span v-if="required">(<span style="color: red">*</span>)</span>
+    <br />
+    <!-- input type normal: text & date -->
+
+    <input
+      v-if="isNormalType"
+      v-model="model"
+      :type="type"
+      :name="name"
+      ref="thisInput"
+    />
+    <!-- input type currency -->
+
+    <input
+      v-if="isCurrency"
+      v-model="model"
+      :type="type"
+      :name="name"
+      v-mask="'###.###.###.###'"
+      ref="money"
+    /><span class="vnd" v-if="isCurrency">VND</span>
+    <!-- input type select, modfify -->
+    <Select
+      v-if="isSelectType"
+      :placeholder="placeholder"
+      :options="options"
+      v-model="model"
+    />
+    <div
+      class="input-clear"
+      v-if="!isBlank && !isSelectType"
+      @click="onClearData"
+    >
+      <i class="fas fa-times"></i>
+    </div>
+  </div>

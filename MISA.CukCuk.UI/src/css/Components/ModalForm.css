@@ -1,0 +1,237 @@
+@import url("../common/font.css");
+
+.modal-form-bg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0, 0.4);
+    z-index: 99;
+}
+.modal-form-bg.hide {
+    display: none;
+}
+.modal-form-content {
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    /* overflow: auto; */
+    width: max-content;
+    min-height: max-content;
+    height: 80%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+/* form */
+.modal-form-content form {
+}
+
+.modal-form-content span.close {
+    position: absolute;
+    right: 0;
+    font-size: 20px;
+    padding-top: 4px;
+    padding-right: 8px;
+    color: #bbb;
+}
+
+.modal-form-content span.close:hover {
+    cursor: pointer;
+}
+
+.modal-form-content .form-left {
+    width: 200px;
+    padding-right: 24px;
+    font-family: GGS-Regular;
+    font-size: 13px;
+    text-align: center;
+}
+
+.modal-form-content .form-avatar {
+    border: 1px solid #bbb;
+    height: 200px;
+    width: 100%;
+    background-image: url("../../assets/img/default-avatar.jpg");
+    border-radius: 50%;
+    background-size: contain;
+}
+
+.modal-form-content .form-title {
+    text-transform: uppercase;
+    padding-top: 24px;
+    padding-left: 24px;
+    font-family: GGS-Bold;
+    font-size: 20px;
+    color: #000;
+}
+
+.modal-form-content .form-content {
+    display: flex;
+    min-height: 65vh;
+    padding: 24px;
+    height: 100px;
+    overflow: auto;
+}
+
+.modal-form-content .form-part {
+    margin-bottom: 16px;
+}
+
+.modal-form-content .form-line {
+    display: flex;
+}
+
+.modal-form-content .form-part-title {
+    font-family: GGS-Bold;
+    font-size: 15px;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.title-line {
+    width: 100px;
+    background-color: #019160;
+    height: 4px;
+    margin: 8px 0;
+}
+
+.modal-form-content .input-label {
+    margin-right: 16px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.modal-form-content .form-bottom {
+    height: 60px;
+    width: 100%;
+    background-color: #e9ebee;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.modal-form-content button.button[type="submit"] {
+    background-color: #019160;
+    border-radius: 4px;
+    height: 40px;
+    color: #ffffff;
+    font-size: 13px;
+    font-family: GGS-Regular;
+    padding-left: 24px;
+    padding-right: 24px;
+    line-height: 40px;
+    border: none;
+    cursor: pointer;
+    margin-right: 24px;
+    display: block;
+    min-width: none;
+}
+
+.modal-form-content .cancel-button {
+    height: 36px;
+    margin-right: 24px;
+    border: 0.2px solid #bbb;
+    background-color: #bbb;
+    border-radius: 4px;
+    color: #000000;
+    font-size: 13px;
+    font-family: GGS-Regular;
+    padding-left: 24px;
+    padding-right: 24px;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    min-width: max-content;
+}
+
+/* input field css */
+.input-label label {
+    font-family: GGS-Medium;
+    font-size: 13px;
+    color: #000000;
+}
+
+.input-label input {
+    outline: none;
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    height: 40px;
+    box-sizing: border-box;
+    margin-top: 4px;
+    padding: 10px 16px;
+    font-family: GGS-Regular;
+    font-size: 13px;
+    color: #000000;
+    min-width: 250px;
+    width: max-content;
+    padding-right: calc(20px + 16px);
+}
+
+.input-label input:focus {
+    border-color: #019160;
+}
+/* input money */
+.modal-form-content .input-label.input-money > span {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    line-height: 40px;
+    margin-right: 5px;
+    font-family: GGS-Medidum;
+    font-size: 13px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.modal-form-content .input-label.input-money input {
+    text-align: right;
+    padding-right: 45px;
+}
+
+.modal-form-content .input-label.input-money .input-clear {
+    left: 0;
+    padding-right: 45px;
+}
+
+/* form intput clear button */
+.modal-form-content .input-label .input-clear {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    bottom: 0;
+    right: 0;
+}
+.modal-form-content .input-clear:hover {
+    cursor: pointer;
+}
+
+/* input select css */
+.modal-form-content .custom-dropdown {
+    margin-top: 4px;
+}
+
+/* scrollbar */
+.modal-form-content::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+/* Track */
+.modal-form-content::-webkit-scrollbar-track {
+    background: #bbb;
+}
+/* Handle */
+.modal-form-content::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+.modal-form-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -1,0 +1,30 @@
+.button {
+    background-color: #019160;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 13px;
+    font-family: GGS-Regular;
+    color: #fff;
+    padding: 0 24px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    line-height: 40px;
+}
+.button:hover {
+    background-color: #2fbe8e;
+}
+.button:active {
+    background-color: #01b075;
+}
+
+.button .btn-icon-icon {
+    width: 16px;
+    height: 100%;
+    display: block;
+    margin-right: 8px;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+}
