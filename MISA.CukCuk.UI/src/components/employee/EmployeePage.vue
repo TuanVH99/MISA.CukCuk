@@ -5,7 +5,7 @@
       <IconButton
         imageUrl="https://firebasestorage.googleapis.com/v0/b/misa-7824e.appspot.com/o/add.png?alt=media&token=584b4300-687e-44ab-bcc2-6eebcfcb5f22"
         text="Thêm nhân viên"
-        v-on:btn-click="showModal"
+        @btn-click="showModal"
       />
     </div>
 
@@ -31,13 +31,8 @@
       <BaseTable :headerList="headersList" :fieldList="employeeList" />
     </div>
     <div class="content-bottom"></div>
-    <!-- <ModalForm :show="addEmployee && modalloaded" @close-modal="onCloseModal" /> -->
-    <modal-form-employee
-      :show="addEmployee"
-      :newId="newEmployeeId"
-      @close-modal="onCloseModal"
-      @submit-modal="onAddNewEmployee"
-    />
+
+    <modal-form-employee ref="modalEmployee" />
   </div>
 </template>
 <script>
@@ -50,7 +45,6 @@ import {
 import Select from "../base/BaseDropdown.vue";
 import IconButton from "../base/BaseIconButton.vue";
 import BaseTable from "../base/BaseTable.vue";
-// import ModalForm from "../base/BaseModalForm.vue";
 import ModalFormEmployee from "./ModalEmployee.vue";
 let headers = [
   { text: "Id nhân viên", propName: "EmployeeId", width: "0%", type: "hidden" },
@@ -79,17 +73,9 @@ export default {
     Select,
     IconButton,
     BaseTable,
-    // ModalForm,
     ModalFormEmployee,
   },
-  computed: {
-    modalloaded: function () {
-      if (this.formConfig) {
-        return true;
-      }
-      return false;
-    },
-  },
+  computed: {},
   created() {
     this.getEmployeeData();
     this.getDepartmentData();
@@ -102,12 +88,9 @@ export default {
       positionList: [],
       headersList: headers,
       employeeList: null,
-      addEmployee: false,
-      modEmployee: false,
       filterDepartment: null,
       filterPosition: null,
-      formConfig: null,
-      newEmployeeId: null,
+      modalMode: "add",
     };
   },
   methods: {
@@ -126,18 +109,7 @@ export default {
           alert("Có lỗi xảy ra!");
         });
     },
-    getNewEmployeeId: function () {
-      employeeInstance
-        .get("/NewEmployeeCode")
-        .then((res) => {
-          console.log(res);
-          this.newEmployeeId = res.data;
-        })
-        .catch((res) => {
-          console.log(res);
-          alert("Có lỗi xảy ra!");
-        });
-    },
+
     /**
      * ? lấy dữ liệu phòng ban
      */
@@ -183,18 +155,14 @@ export default {
     /**
      * ? mở/đóng Modal form
      */
-    showModal: function () {
-      this.getNewEmployeeId();
-      this.addEmployee = true;
-      this.modEmployee = false;
+    showModal() {
+      this.$refs.modalEmployee.onShow(this.modalMode);
     },
-    onCloseModal: function () {
-      this.newEmployeeId = null;
-      this.addEmployee = false;
-      this.modEmployee = false;
+    closeModal() {
+      this.$refs.modalEmployee.onClose(this.modalMode);
     },
     onAddNewEmployee: function (data) {
-      console.log(data)
+      console.log(data);
       alert("submit comming!");
     },
   },

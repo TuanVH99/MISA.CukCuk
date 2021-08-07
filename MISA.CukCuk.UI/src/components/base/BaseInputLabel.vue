@@ -3,63 +3,43 @@
     <label>{{ label }}</label>
     <span v-if="required">(<span style="color: red">*</span>)</span>
     <br />
-    <!-- input type normal: text & date -->
+    <!-- input type normal: text -->
+    <input v-if="isText" v-model="model" :type="type" ref="inputRef" />
 
-    <input
-      v-if="isNormalType"
-      v-model="model"
-      :type="type"
-      :name="name"
-     
-    />
+    <!-- input type normal: date -->
+    <input v-if="isDate" v-model="model" :type="type" ref="inputRef" />
+
     <!-- input type currency -->
-
     <input
       v-if="isCurrency"
       v-model="model"
       :type="type"
-      :name="name"
       v-mask="'###.###.###.###'"
-      ref="money"
+      ref="inputRef"
     /><span class="vnd" v-if="isCurrency">VND</span>
-    <!-- input type select, modfify -->
-    <Select
-      v-if="isSelectType"
-      :placeholder="placeholder"
-      :options="options"
-      v-model="model"
-    />
-    <div
-      class="input-clear"
-      v-if="!isBlank && !isSelectType"
-      @click="onClearData"
-    >
+
+    <!-- input type email -->
+    <!-- input clear button  -->
+    <div class="input-clear" v-if="!isBlank" @click="onClearData">
       <i class="fas fa-times"></i>
     </div>
   </div>
 </template>
 <script>
 /**
- * ? Hiện tại có 4 loại input: text, date, currency và select
+ * ? Hiện tại có 3 loại input: text, date, currency, email
  * ? mỗi loại sẽ nhận các props như bthg
- * ? riêng đối với select: cần có props options, value = initialValue
  */
-import Select from "./BaseDropdown.vue";
+
 import moment from "moment";
 export default {
   name: "InputLabel",
-  components: {
-    Select,
-  },
   props: {
     label: {
       type: String,
       require: false,
     },
-    name: {
-      type: String,
-      require: false,
-    },
+
     type: {
       type: String,
       require: true,
@@ -84,10 +64,6 @@ export default {
     rule: {
       require: false,
     },
-    focus: {
-      require: false,
-      type: Boolean,
-    },
   },
   created() {
     /**
@@ -95,33 +71,37 @@ export default {
      */
     switch (this.type) {
       case "currency": {
-        this.isNormalType = false;
-        this.isSelectType = false;
+        this.isText = false;
         this.isCurrency = true;
+        this.isDate = false;
         break;
       }
-      case "select": {
-        this.isNormalType = false;
-        this.isSelectType = true;
+      case "date": {
+        this.isText = false;
         this.isCurrency = false;
+        this.isDate = true;
+
         break;
       }
       default: {
-        this.isNormalType = true;
-        this.isSelectType = false;
+        this.isText = true;
+        this.isDate = false;
         this.isCurrency = false;
         break;
       }
     }
-    
+    if (this.value && this.value.length) {
+      this.isBlank = false;
+    }
   },
+  mounted() {},
   data() {
     return {
       optionList: [],
       isBlank: this.value == null ? true : false,
-      isNormalType: null,
-      isSelectType: null,
+      isText: null,
       isCurrency: null,
+      isDate: null,
     };
   },
   methods: {
@@ -129,13 +109,13 @@ export default {
       this.model = null;
       this.isBlank = true;
     },
-    onInput: function () {
-      console.log(this.model);
-      if (!this.model.length) {
-        this.isBlank = true;
-      } else {
-        this.isBlank = false;
-      }
+    onFocus() {
+      this.$nextTick(() => {
+        this.$refs.inputRef.focus();
+      });
+    },
+    onInputCurrency() {
+      if (this.type == "currency") this.$nextTick(() => {});
     },
   },
   computed: {
@@ -147,7 +127,7 @@ export default {
         return this.value;
       },
       set(val) {
-        if (!val) {
+        if (!val || !val.length) {
           this.isBlank = true;
         } else {
           this.isBlank = false;
