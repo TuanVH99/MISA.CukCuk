@@ -28,7 +28,11 @@
       </div>
     </div>
     <div class="content-data">
-      <BaseTable :headerList="headersList" :fieldList="employeeList" />
+      <BaseTable
+        :headerList="headersList"
+        :fieldList="employeeList"
+        @tr-click="onClickDetail"
+      />
     </div>
     <div class="content-bottom"></div>
     <!-- <ModalForm :show="addEmployee && modalloaded" @close-modal="onCloseModal" /> -->
@@ -108,6 +112,7 @@ export default {
       filterPosition: null,
       formConfig: null,
       newEmployeeId: null,
+      show: false,
     };
   },
   methods: {
@@ -194,8 +199,12 @@ export default {
       this.modEmployee = false;
     },
     onAddNewEmployee: function (data) {
-      console.log(data)
+      console.log(data);
       alert("submit comming!");
+    },
+
+    onClickDetail(obj) {
+      alert(obj.EmployeeId);
     },
   },
 };
