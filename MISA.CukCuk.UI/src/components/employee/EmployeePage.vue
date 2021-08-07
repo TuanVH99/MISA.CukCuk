@@ -28,7 +28,11 @@
       </div>
     </div>
     <div class="content-data">
-      <BaseTable :headerList="headersList" :fieldList="employeeList" />
+      <BaseTable
+        :headerList="headersList"
+        :fieldList="employeeList"
+        @tr-click="onClickDetail"
+      />
     </div>
     <div class="content-bottom"></div>
 
@@ -90,7 +94,13 @@ export default {
       employeeList: null,
       filterDepartment: null,
       filterPosition: null,
+<<<<<<< HEAD
       modalMode: "add",
+=======
+      formConfig: null,
+      newEmployeeId: null,
+      show: false,
+>>>>>>> UI.table.click
     };
   },
   methods: {
@@ -164,6 +174,10 @@ export default {
     onAddNewEmployee: function (data) {
       console.log(data);
       alert("submit comming!");
+    },
+
+    onClickDetail(obj) {
+      alert(obj.EmployeeId);
     },
   },
 };
