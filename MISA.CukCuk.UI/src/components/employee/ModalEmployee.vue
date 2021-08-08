@@ -165,6 +165,7 @@ import {
   employeeInstance,
   departmentInstance,
   positionInstance,
+  formatCurrency,
 } from "../../common";
 export default {
   name: "ModalFormEmployee",
@@ -254,7 +255,7 @@ export default {
           });
         })
         .catch((err) => {
-          alert("Có lỗi xảy ra");
+          alert("Có lỗi xảy ra khi lấy dữ liệu position!");
           console.log(err);
         });
     },
@@ -266,19 +267,32 @@ export default {
         //debugger; // eslint-disable-line no-debugger
         let tmp = this.employeeData;
         for (const key in tmp) {
-          tmp[key] = null;
+          tmp[key] = "";
         }
         const response = await employeeInstance.get("/NewEmployeeCode");
         console.log(response);
         this.employeeData.EmployeeCode = response.data;
       } catch (e) {
         console.log(e);
-        alert("Có lỗi xảy ra!");
+        alert("Có lỗi xảy ra khi lấy id!");
+      }
+    },
+    async createNewEmployee() {
+      try {
+        //debugger; // eslint-disable-line no-debugger
+        let tmp = { ...this.employeeData };
+        tmp.Salary = formatCurrency(tmp.Salary, 0);
+        delete tmp.EmployeeId;
+        const response = await employeeInstance.post("/", tmp);
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+        alert("Có lỗi xảy ra khi tạo nhân viên!");
       }
     },
     /**
      * ? Hiện modal form theo mode, mode được định nghĩa cả ở parent
-     * params {String}
+     * params {String} mode
      */
     onShow(mode) {
       this.show = true;
@@ -294,8 +308,16 @@ export default {
         // this.getEmployeeWithId();
       }
     },
+
     onClose() {
       this.show = false;
+    },
+
+    onSubmitForm(event) {
+      event.preventDefault();
+      if (this.mode == "add") {
+        this.createNewEmployee();
+      }
     },
   },
 };

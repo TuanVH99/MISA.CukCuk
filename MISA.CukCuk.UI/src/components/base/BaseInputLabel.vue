@@ -19,10 +19,15 @@
     /><span class="vnd" v-if="isCurrency">VND</span>
 
     <!-- input type email -->
+    <input v-if="isEmail" v-model="model" :type="type" ref="inputRef" />
+
     <!-- input clear button  -->
     <div class="input-clear" v-if="!isBlank" @click="onClearData">
       <i class="fas fa-times"></i>
     </div>
+    <span class="tooltiptext" v-if="!validation.isOK">{{
+      validation.error
+    }}</span>
   </div>
 </template>
 <script>
@@ -30,8 +35,8 @@
  * ? Hiện tại có 3 loại input: text, date, currency, email
  * ? mỗi loại sẽ nhận các props như bthg
  */
-
 import moment from "moment";
+import { ValidateEmailAddress } from "../../common";
 export default {
   name: "InputLabel",
   props: {
@@ -39,7 +44,6 @@ export default {
       type: String,
       require: false,
     },
-
     type: {
       type: String,
       require: true,
@@ -54,14 +58,12 @@ export default {
       require: false,
     },
     value: {
-      type: String,
       require: false,
     },
-    options: {
-      type: Array,
+    max: {
       require: false,
     },
-    rule: {
+    min: {
       require: false,
     },
   },
@@ -74,18 +76,27 @@ export default {
         this.isText = false;
         this.isCurrency = true;
         this.isDate = false;
+        this.isEmail = false;
         break;
       }
       case "date": {
         this.isText = false;
         this.isCurrency = false;
         this.isDate = true;
-
+        this.isEmail = false;
+        break;
+      }
+      case "email": {
+        this.isText = false;
+        this.isCurrency = false;
+        this.isDate = false;
+        this.isEmail = true;
         break;
       }
       default: {
         this.isText = true;
         this.isDate = false;
+        this.isEmail = false;
         this.isCurrency = false;
         break;
       }
@@ -102,6 +113,11 @@ export default {
       isText: null,
       isCurrency: null,
       isDate: null,
+      isEmail: null,
+      validation: {
+        isOK: true,
+        error: null,
+      },
     };
   },
   methods: {
@@ -117,8 +133,50 @@ export default {
     onInputCurrency() {
       if (this.type == "currency") this.$nextTick(() => {});
     },
+    /**
+     * ? Validate dữ liệu cho các field, hiện tại gồm rule đơn giản: định dạng email, required và length
+     */
+    validate() {
+      this.validation = {
+        isOK: true,
+        error: null,
+      };
+      if (this.required && (!this.model || !this.model.length)) {
+        this.validation.isOK = false;
+        this.validation.error = "Cần điền đầy đủ thông tin";
+
+        return false;
+      }
+      if (this.max && this.model.length > this.max) {
+        this.validation.isOK = false;
+        this.validation.error = "Vượt quá ký tự cho phép";
+
+        return false;
+      }
+      if (this.min && this.model.length < this.mmin) {
+        this.validation.isOK = false;
+        this.validation.error = "Không đủ độ dài ký tự";
+
+        return false;
+      }
+      if (this.type == "email") {
+        if (this.model) {
+          let check = ValidateEmailAddress(this.model);
+          if (!check) {
+            this.validation.isOK = false;
+            this.validation.error = "Không đúng định dạng Email";
+
+            return false;
+          }
+        }
+      }
+      return true;
+    },
   },
   computed: {
+    /**
+     * ? Để có thể sử dụng v-model cho component, và check clear data
+     */
     model: {
       get() {
         if (this.type == "date") {

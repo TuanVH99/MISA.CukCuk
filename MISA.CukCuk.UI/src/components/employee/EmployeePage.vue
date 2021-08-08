@@ -94,13 +94,7 @@ export default {
       employeeList: null,
       filterDepartment: null,
       filterPosition: null,
-<<<<<<< HEAD
       modalMode: "add",
-=======
-      formConfig: null,
-      newEmployeeId: null,
-      show: false,
->>>>>>> UI.table.click
     };
   },
   methods: {
