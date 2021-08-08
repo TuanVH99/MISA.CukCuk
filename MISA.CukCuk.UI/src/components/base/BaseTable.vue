@@ -4,6 +4,14 @@
       <thead>
         <tr>
           <th
+            :style="{
+              width: '2%',
+            }"
+            :type="'checkbox'"
+          >
+            <custom-cb ref="hSelect" />
+          </th>
+          <th
             v-for="(item, index) in headerList"
             :key="index"
             :style="{
@@ -16,7 +24,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in fields" :key="index" @dblclick="showId(item)">
+        <tr
+          v-for="(item, index) in fields"
+          :key="index"
+          @dblclick="showId(item)"
+        >
+          <td
+            :style="{
+              width: '2%',
+            }"
+            :type="'checkbox'"
+          >
+            <custom-cb ref="cblist" />
+          </td>
           <td
             v-for="header in headerList"
             :key="header.propName"
@@ -35,8 +55,10 @@
 </template>
 <script>
 import { formatDate, formatCurrency } from "../../common";
+import CustomCb from "./BaseCheckBox.vue";
 export default {
   name: "BaseTable",
+  components: { CustomCb },
   props: ["headerList", "fieldList"],
   data() {
     return {
@@ -77,6 +99,7 @@ export default {
     showId(obj) {
       this.$emit("tr-click", obj);
     },
+    selectId() {},
   },
 };
 </script>

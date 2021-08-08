@@ -63,6 +63,9 @@ export default {
       required: false,
       default: 0,
     },
+    value: {
+      required: false,
+    },
   },
   data() {
     return {
@@ -75,35 +78,50 @@ export default {
   },
   mounted() {},
   watch: {
-    options: function () {
-      this.onSelected(this.$attrs.value);
+    value: function () {
+      console.log("watch running!");
+      this.onSelected(this.value);
     },
   },
+  computed: {},
   methods: {
-    onChooseItem: function (text, value) {
-      //? Chọn item
+    /**
+     * ? Chọn item
+     */
+    onChooseItem(text, value) {
       this.currentData.value = value;
       this.currentData.text = text;
       this.show = false;
       this.$emit("input", value);
     },
-    onClearData: function () {
-      //? Xóa dữ liệu
+    /**
+     * ? Xóa dữ liệu
+     */
+    onClearData() {
       this.currentData.value = null;
       this.currentData.text = null;
       this.show = false;
       this.$emit("input", null);
     },
-    onDropdownAction: function () {
-      //? Hiện dữ liệu hoặc đóng
+    /**
+     * ? Hiện dữ liệu hoặc đóng
+     */
+    onDropdownAction() {
       this.show = !this.show;
     },
-    onBlur: function () {
-      //? Xử lý click ngoài component
+    /**
+     * ? Xử lý click ngoài component
+     */
+    onBlur() {
       this.show = false;
     },
-    onSelected: function (val) {
-      //? Xử lý dữ liệu mà có trước
+    /**
+     * ? Xử lý dữ liệu mà có trước
+     */
+    onSelected(val) {
+      if (!val) {
+        this.onClearData();
+      }
       this.options.forEach((item) => {
         if (item.value == val) {
           this.currentData.text = item.text;

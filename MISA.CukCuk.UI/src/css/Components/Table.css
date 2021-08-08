@@ -36,7 +36,8 @@
 
 .custom-table tbody {
     display: block;
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: auto;
     height: calc(100% - 46px);
 }
 .custom-table thead,

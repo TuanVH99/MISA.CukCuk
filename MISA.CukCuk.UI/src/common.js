@@ -81,8 +81,9 @@ export function sliceIntoChunks(arr, chunkSize) {
 }
 
 /**
- * ? Fill các prop object truyền vào với stirng hoặc null
+ * ? Fill các prop object truyền vào với string hoặc null
  * @param {Object} obj
+ * @param {String} option
  * @returns Object
  */
 export function fillObj(obj, option) {

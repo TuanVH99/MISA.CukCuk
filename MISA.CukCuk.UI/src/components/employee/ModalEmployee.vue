@@ -133,7 +133,7 @@
                   v-model="employeeData.JoinDate"
                 />
                 <div class="input-label">
-                  <label>Phòng ban</label>
+                  <label>Tình trạng công việc</label>
                   <br />
                   <custom-select
                     label="Tình trạng công viêc"
@@ -166,6 +166,7 @@ import {
   departmentInstance,
   positionInstance,
   formatCurrency,
+  fillObj,
 } from "../../common";
 export default {
   name: "ModalFormEmployee",
@@ -179,8 +180,8 @@ export default {
     },
   },
   created() {
-    this.getDepartmentData();
-    this.getPositionData();
+    // this.getDepartmentData();
+    // this.getPositionData();
   },
   watch: {},
   mounted() {},
@@ -211,8 +212,8 @@ export default {
       positionList: [],
       genderList: [
         { text: "Nam", value: "1" },
-        { text: "Nữ", value: "2" },
-        { text: "Không xác định", value: "3" },
+        { text: "Nữ", value: "0" },
+        { text: "Không xác định", value: "2" },
       ],
       workstatus: [
         { text: "Đang làm việc", value: "1" },
@@ -222,7 +223,11 @@ export default {
     };
   },
   methods: {
+    /**
+     * ? Lấy dữ liệu phòng ban
+     */
     getDepartmentData() {
+      this.departmentList = [];
       departmentInstance
         .get("/")
         .then((res) => {
@@ -241,7 +246,11 @@ export default {
         });
     },
 
+    /**
+     * ? Lấy dữ liệu vị trí
+     */
     getPositionData() {
+      this.positionList = [];
       positionInstance
         .get("/")
         .then((res) => {
@@ -262,13 +271,9 @@ export default {
     /**
      * ? Lấy dữ liệu nhân viên theo id
      */
-    async getNewEmployeeId() {
+    async getNewEmployeeIdCode() {
       try {
         //debugger; // eslint-disable-line no-debugger
-        let tmp = this.employeeData;
-        for (const key in tmp) {
-          tmp[key] = "";
-        }
         const response = await employeeInstance.get("/NewEmployeeCode");
         console.log(response);
         this.employeeData.EmployeeCode = response.data;
@@ -277,10 +282,18 @@ export default {
         alert("Có lỗi xảy ra khi lấy id!");
       }
     },
+    /**
+     * ? Tạo nhân viên mới
+     */
     async createNewEmployee() {
       try {
         //debugger; // eslint-disable-line no-debugger
         let tmp = { ...this.employeeData };
+        for (const key in tmp) {
+          if (!tmp[key] || !tmp[key].length) {
+            tmp[key] = "";
+          }
+        }
         tmp.Salary = formatCurrency(tmp.Salary, 0);
         delete tmp.EmployeeId;
         const response = await employeeInstance.post("/", tmp);
@@ -291,26 +304,57 @@ export default {
       }
     },
     /**
-     * ? Hiện modal form theo mode, mode được định nghĩa cả ở parent
-     * params {String} mode
+     * ? Lấy dữ liệu nhân viên theo id
      */
-    onShow(mode) {
+    async getDetailEmployee(id) {
+      try {
+        const response = await employeeInstance.get(`/${id}`);
+        console.log(response);
+        this.employeeData = response.data;
+      } catch (err) {
+        console.log(err);
+        alert("Có lỗi xảy ra khi lấy dữ liệu nhân viên!");
+      }
+    },
+    /**
+     * ? Thay đổi dữ liệu nhân viên
+     */
+    async changeEmployeeData() {
+      try {
+        const id = this.employeeData.EmployeeId;
+        let tmp = { ...this.employeeData };
+        tmp.Salary = formatCurrency(tmp.Salary, 0);
+        const response = await employeeInstance.put(`/${id}`, tmp);
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+        alert("Có lỗi xảy ra khi thay đổi dữ liệu nhân viên!");
+      }
+    },
+    /**
+     * ? Hiện modal form theo mode, mode được định nghĩa cả ở parent
+     */
+    onShow(mode, id) {
       this.show = true;
+      this.getDepartmentData();
+      this.getPositionData();
       if (mode == "add") {
         this.mode = mode;
         // debugger; // eslint-disable-line no-debugger
-        this.getNewEmployeeId();
+        this.getNewEmployeeIdCode();
         this.$refs.EmployeeCode.onFocus();
       }
-      if (mode == "modify") {
+      if (mode == "modify" && id) {
         this.mode = mode;
-        alert("under construction");
-        // this.getEmployeeWithId();
+        this.getDetailEmployee(id);
+        this.$refs.EmployeeCode.onFocus();
       }
     },
 
     onClose() {
       this.show = false;
+      this.employeeData = fillObj(this.employeeData, null);
+      this.$emit("complete-task");
     },
 
     onSubmitForm(event) {
@@ -318,6 +362,10 @@ export default {
       if (this.mode == "add") {
         this.createNewEmployee();
       }
+      if (this.mode == "modify") {
+        this.changeEmployeeData();
+      }
+      this.onClose();
     },
   },
 };

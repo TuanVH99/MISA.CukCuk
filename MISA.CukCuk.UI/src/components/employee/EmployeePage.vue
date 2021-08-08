@@ -5,7 +5,7 @@
       <IconButton
         imageUrl="https://firebasestorage.googleapis.com/v0/b/misa-7824e.appspot.com/o/add.png?alt=media&token=584b4300-687e-44ab-bcc2-6eebcfcb5f22"
         text="Thêm nhân viên"
-        @btn-click="showModal"
+        @btn-click="showModalAdd('add')"
       />
     </div>
 
@@ -31,12 +31,12 @@
       <BaseTable
         :headerList="headersList"
         :fieldList="employeeList"
-        @tr-click="onClickDetail"
+        @tr-click="showModalMod"
       />
     </div>
     <div class="content-bottom"></div>
 
-    <modal-form-employee ref="modalEmployee" />
+    <modal-form-employee ref="modalEmployee" @complete-task="getEmployeeData" />
   </div>
 </template>
 <script>
@@ -52,7 +52,7 @@ import BaseTable from "../base/BaseTable.vue";
 import ModalFormEmployee from "./ModalEmployee.vue";
 let headers = [
   { text: "Id nhân viên", propName: "EmployeeId", width: "0%", type: "hidden" },
-  { text: "#", width: "2%" },
+  // { text: "#", width: "2%" },
   { text: "Mã nhân viên", propName: "EmployeeCode", width: "6%" },
   { text: "Họ và tên", propName: "FullName", width: "10%" },
   { text: "Giới tính", propName: "GenderName", width: "7%" },
@@ -94,14 +94,16 @@ export default {
       employeeList: null,
       filterDepartment: null,
       filterPosition: null,
-      modalMode: "add",
+      modalMode: null,
+      selected: [],
     };
   },
   methods: {
     /**
      * ? lấy dữ liệu nhan vien
      */
-    getEmployeeData: function () {
+    getEmployeeData() {
+      this.modalMode = null;
       employeeInstance
         .get("/")
         .then((res) => {
@@ -113,7 +115,6 @@ export default {
           alert("Có lỗi xảy ra!");
         });
     },
-
     /**
      * ? lấy dữ liệu phòng ban
      */
@@ -159,19 +160,13 @@ export default {
     /**
      * ? mở/đóng Modal form
      */
-    showModal() {
+    showModalAdd(mode) {
+      this.modalMode = mode;
       this.$refs.modalEmployee.onShow(this.modalMode);
     },
-    closeModal() {
-      this.$refs.modalEmployee.onClose(this.modalMode);
-    },
-    onAddNewEmployee: function (data) {
-      console.log(data);
-      alert("submit comming!");
-    },
-
-    onClickDetail(obj) {
-      alert(obj.EmployeeId);
+    showModalMod(obj) {
+      this.modalMode = "modify";
+      this.$refs.modalEmployee.onShow(this.modalMode, obj.EmployeeId);
     },
   },
 };
