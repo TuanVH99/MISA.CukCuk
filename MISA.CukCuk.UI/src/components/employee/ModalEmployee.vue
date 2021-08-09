@@ -180,8 +180,8 @@ export default {
     },
   },
   created() {
-    // this.getDepartmentData();
-    // this.getPositionData();
+    this.getDepartmentData();
+    this.getPositionData();
   },
   watch: {},
   mounted() {},
@@ -336,8 +336,8 @@ export default {
      */
     onShow(mode, id) {
       this.show = true;
-      this.getDepartmentData();
-      this.getPositionData();
+      // this.getDepartmentData();
+      // this.getPositionData();
       if (mode == "add") {
         this.mode = mode;
         // debugger; // eslint-disable-line no-debugger

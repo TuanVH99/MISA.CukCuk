@@ -23,6 +23,10 @@ export default {
     onChange() {
       this.$emit("input", this.checked);
     },
+    outterChange() {
+      this.onChange();
+      return this.checked;
+    },
   },
 };
 </script>

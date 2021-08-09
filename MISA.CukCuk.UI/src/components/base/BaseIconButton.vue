@@ -1,5 +1,11 @@
 <template>
-  <button class="button" v-on:click="showModal">
+  <button
+    class="button"
+    v-on:click="showModal"
+    :disabled="disabled"
+    type="button"
+    :option="option"
+  >
     <div
       class="btn-icon-icon"
       :style="{ 'background-image': 'url(' + imageUrl + ')' }"
@@ -14,13 +20,13 @@
  */
 export default {
   name: "IconButton",
-  props: ["imageUrl", "text"],
+  props: ["imageUrl", "text", "option", "disabled"],
   mounted() {},
-  methods:{
-    showModal:function(){
-      this.$emit('btn-click');
-    }
-  }
+  methods: {
+    showModal: function () {
+      this.$emit("btn-click");
+    },
+  },
 };
 </script>
 <style>

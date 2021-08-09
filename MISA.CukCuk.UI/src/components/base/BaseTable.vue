@@ -35,7 +35,7 @@
             }"
             :type="'checkbox'"
           >
-            <custom-cb ref="cblist" />
+            <custom-cb ref="cblist" @input="selectId($event, item)" />
           </td>
           <td
             v-for="header in headerList"
@@ -64,6 +64,7 @@ export default {
     return {
       fields: [],
       headerProps: [],
+      selected: [],
     };
   },
   created() {},
@@ -99,7 +100,13 @@ export default {
     showId(obj) {
       this.$emit("tr-click", obj);
     },
-    selectId() {},
+    selectId(isCheck, info) {
+      if (isCheck) {
+        this.$emit("select-one", info);
+      } else {
+        this.$emit("remove-one", info);
+      }
+    },
   },
 };
 </script>

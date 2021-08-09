@@ -2,11 +2,21 @@
   <div class="content">
     <div class="content-title">
       Danh sách nhân viên
-      <IconButton
-        imageUrl="https://firebasestorage.googleapis.com/v0/b/misa-7824e.appspot.com/o/add.png?alt=media&token=584b4300-687e-44ab-bcc2-6eebcfcb5f22"
-        text="Thêm nhân viên"
-        @btn-click="showModalAdd('add')"
-      />
+
+      <div style="display: flex">
+        <IconButton
+          imageUrl="https://firebasestorage.googleapis.com/v0/b/misa-7824e.appspot.com/o/image%2Ftrash_remove_icon_145922.svg?alt=media&token=63796a56-9701-4bf8-b926-167cfe0ed2f1"
+          text="Xóa nhân viên"
+          :option="'delete'"
+          :disabled="selected.length ? false : true"
+          @btn-click="removeEmployee"
+        />
+        <IconButton
+          imageUrl="https://firebasestorage.googleapis.com/v0/b/misa-7824e.appspot.com/o/add.png?alt=media&token=584b4300-687e-44ab-bcc2-6eebcfcb5f22"
+          text="Thêm nhân viên"
+          @btn-click="showModalAdd('add')"
+        />
+      </div>
     </div>
 
     <div class="content-filter">
@@ -32,6 +42,8 @@
         :headerList="headersList"
         :fieldList="employeeList"
         @tr-click="showModalMod"
+        @select-one="selectEmployee"
+        @remove-one="deselectEmployee"
       />
     </div>
     <div class="content-bottom"></div>
@@ -104,6 +116,7 @@ export default {
      */
     getEmployeeData() {
       this.modalMode = null;
+      this.select = [];
       employeeInstance
         .get("/")
         .then((res) => {
@@ -157,8 +170,19 @@ export default {
           console.log(err);
         });
     },
+    async removeEmployee() {
+      let id = this.selected[0];
+      try {
+        const response = await employeeInstance.delete("/" + id);
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+        alert("Có lỗi xảy ra khi xóa nhân viên!");
+      }
+    },
+
     /**
-     * ? mở/đóng Modal form
+     * ? mở Modal form
      */
     showModalAdd(mode) {
       this.modalMode = mode;
@@ -167,6 +191,17 @@ export default {
     showModalMod(obj) {
       this.modalMode = "modify";
       this.$refs.modalEmployee.onShow(this.modalMode, obj.EmployeeId);
+    },
+    /**
+     * ? Chọn từng id
+     */
+    selectEmployee(obj) {
+      // console.log("add " + obj.EmployeeId);
+      this.selected.push(obj.EmployeeId);
+    },
+    deselectEmployee(obj) {
+      // console.log("remove " + obj.EmployeeId);
+      this.selected = this.selected.filter((item) => item != obj.EmployeeId);
     },
   },
 };

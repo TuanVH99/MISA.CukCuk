@@ -19,6 +19,19 @@
     background-color: #01b075;
 }
 
+.button[option="delete"] {
+    background-color: #f65454;
+}
+/* .button[option="delete"]:hover {
+    background-color: #ffebeb;
+} */
+.button[option="delete"]:active {
+    background-color: #ffebeb;
+}
+.button[option="delete"]:disabled {
+    background-color: #ffebeb;
+}
+
 .button .btn-icon-icon {
     width: 16px;
     height: 100%;
