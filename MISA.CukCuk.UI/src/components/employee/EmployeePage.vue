@@ -48,7 +48,7 @@
     </div>
     <div class="content-bottom"></div>
 
-    <modal-form-employee ref="modalEmployee" @complete-task="getEmployeeData" />
+    <modal-form-employee ref="modalEmployee" @complete-task="onCompleteModal" />
   </div>
 </template>
 <script>
@@ -116,7 +116,8 @@ export default {
      */
     getEmployeeData() {
       this.modalMode = null;
-      this.select = [];
+      this.selected = [];
+      this.employeeList = [];
       employeeInstance
         .get("/")
         .then((res) => {
@@ -202,6 +203,9 @@ export default {
     deselectEmployee(obj) {
       // console.log("remove " + obj.EmployeeId);
       this.selected = this.selected.filter((item) => item != obj.EmployeeId);
+    },
+    onCompleteModal() {
+      this.getEmployeeData();
     },
   },
 };
