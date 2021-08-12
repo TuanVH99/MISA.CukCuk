@@ -298,6 +298,9 @@ export default {
         delete tmp.EmployeeId;
         const response = await employeeInstance.post("/", tmp);
         console.log(response);
+        if (response) {
+          this.onClose();
+        }
       } catch (e) {
         console.log(e);
         alert("Có lỗi xảy ra khi tạo nhân viên!");
@@ -314,6 +317,7 @@ export default {
       } catch (err) {
         console.log(err);
         alert("Có lỗi xảy ra khi lấy dữ liệu nhân viên!");
+        return null;
       }
     },
     /**
@@ -326,9 +330,13 @@ export default {
         tmp.Salary = formatCurrency(tmp.Salary, 0);
         const response = await employeeInstance.put(`/${id}`, tmp);
         console.log(response);
+        if (response) {
+          this.onClose();
+        }
       } catch (err) {
         console.log(err);
         alert("Có lỗi xảy ra khi thay đổi dữ liệu nhân viên!");
+        return null;
       }
     },
     /**
@@ -361,11 +369,14 @@ export default {
       event.preventDefault();
       if (this.mode == "add") {
         this.createNewEmployee();
+        this.mode = null;
       }
       if (this.mode == "modify") {
         this.changeEmployeeData();
+        this.mode = null;
       }
-      this.onClose();
+
+      // this.onClose();
     },
   },
 };

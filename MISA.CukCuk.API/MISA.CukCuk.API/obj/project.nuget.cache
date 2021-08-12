@@ -1,15 +1,24 @@
 {
   "version": 2,
-  "dgSpecHash": "1He+HW9OY+lCeKffPW6+K6Mw960hCZYyUWrTcmuGCO+gVrMqS828Xe2H8bHUQ+QLfUdsuEtoZOHW79SvpCexfA==",
+  "dgSpecHash": "hvXMumiaudKww9acxGv3cCYXfjMsvsdNKCNnun1+S9AunfFt6PdFwZ8qJYKqEKRhltkQMNUWssWb96uI5w5vxw==",
   "success": true,
   "projectFilePath": "D:\\Programming\\MISA\\MISA_Cukcuk\\MISA.CukCuk.API\\MISA.CukCuk.API\\MISA.CukCuk.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\latitude E6540\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\latitude E6540\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\latitude E6540\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
-    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
-    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
-    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+    "C:\\Users\\latitude E6540\\.nuget\\packages\\mysqlconnector\\1.3.11\\mysqlconnector.1.3.11.nupkg.sha512",
+    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore\\6.1.5\\swashbuckle.aspnetcore.6.1.5.nupkg.sha512",
+    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.1.5\\swashbuckle.aspnetcore.swagger.6.1.5.nupkg.sha512",
+    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.1.5\\swashbuckle.aspnetcore.swaggergen.6.1.5.nupkg.sha512",
+    "C:\\Users\\latitude E6540\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.1.5\\swashbuckle.aspnetcore.swaggerui.6.1.5.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\Programming\\MISA\\MISA_Cukcuk\\MISA.CukCuk.API\\MISA.CukCuk.API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
